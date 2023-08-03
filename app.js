@@ -10,24 +10,25 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=egg')
     const recipeCategory = meals.map(item => item.strCategory)
 
     for(let i = 0; i < thumbNail.length; i++){
-        changeImage(i, thumbNail[i])
-        changeText(i, recipeName[i])
-        addText(i, strInstruction[i])
-        addLink(i, strYoutube[i])
-        modalImage(i, thumbNail[i])
-        modalName(i, recipeName[i])
-        addCategory(i, recipeCategory[i])
+      //API - 메인카드 연결
+      changeImage(i, thumbNail[i])
+      changeText(i, recipeName[i])
+      addText(i, strInstruction[i])
+      addCategory(i, recipeCategory[i])
+      addLink(i, strYoutube[i])
+
+      //메인카드 - 모달 연결  
+      modalImage(i, thumbNail[i])
+      modalName(i, recipeName[i])
+      modalChangeCategory(i, recipeCategory[i])
+      modalChangeText(i, strInstruction[i])
+      modalChangeLink(i, strYoutube[i])
       }
   })
 
+  // API - 메인카드 연결
   function changeImage(indexNum, arrayNum) {
     const imageElement = document.getElementsByClassName('item_img')[indexNum]
-    if (imageElement){
-      imageElement.src = arrayNum
-    }
-  }
-  function modalImage(indexNum, arrayNum) {
-    const imageElement = document.getElementsByClassName('modal_img')[indexNum]
     if (imageElement){
       imageElement.src = arrayNum
     }
@@ -38,10 +39,10 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=egg')
       textElement.textContent = recipe_name
     }
   }
-  function modalName(i, modal_name){
-    const textElement = document.getElementsByClassName('modal_name')[i]
+  function addCategory(i, recipe_category){
+    const textElement = document.getElementsByClassName('recipe_category')[i]
     if(textElement){
-      textElement.textContent = modal_name
+      textElement.textContent = recipe_category
     }
   }
   function addText(i, recipe_info){
@@ -50,14 +51,40 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=egg')
       textElement.textContent = recipe_info
     }
   }
-  function addCategory(i, recipe_category){
-    const textElement = document.getElementsByClassName('recipe_category')[i]
-    if(textElement){
-      textElement.textContent = recipe_category
+  function addLink(indexNum, arrayNum) {
+    const imageElement = document.getElementsByClassName('recipe_video')[indexNum]
+    if (imageElement){
+      imageElement.href = arrayNum
     }
   }
-  function addLink(indexNum, arrayNum) {
-    const imageElement = document.getElementsByClassName('open_video')[indexNum]
+  
+  // 메인카드 - 모달 연결
+  function modalImage(indexNum, arrayNum) {
+    const imageElement = document.getElementsByClassName('modal_img')[indexNum]
+    if (imageElement){
+      imageElement.src = arrayNum
+    }
+  }
+  function modalName(i, modal_name){
+    const textElement = document.getElementsByClassName('modal_name')[i]
+    if(textElement){
+      textElement.textContent = modal_name
+    }
+  }
+  function modalChangeCategory(i, modal_category){
+    const textElement = document.getElementsByClassName('modal_category')[i]
+    if(textElement){
+      textElement.textContent = modal_category
+    }
+  }
+  function modalChangeText(i, modal_text){
+    const textElement = document.getElementsByClassName('modal_text')[i]
+    if(textElement){
+      textElement.textContent = modal_text
+    }
+  }
+  function modalChangeLink(indexNum, arrayNum) {
+    const imageElement = document.getElementsByClassName('modal_video')[indexNum]
     if (imageElement){
       imageElement.href = arrayNum
     }
@@ -69,9 +96,9 @@ const modal = document.querySelector('.modal_container')
 const modalClose = document.querySelector('.modal_close .material-symbols-outlined')
 const copyImage = document.querySelector('.modal_img')
 const copyName = document.querySelector('.modal_name')
-const recipeCategory = document.querySelector('.recipe_category')
-const recipeInfo = document.querySelector('.recipe_info')
-const openVideo = document.querySelector('.open_video')
+const modalCategory = document.querySelector('.modal_category')
+const modalText = document.querySelector('.modal_text')
+const modalVideo = document.querySelector('.modal_video')
 
 function popupModal() {
     const itemIndex = parseInt(this.dataset.index)
@@ -82,9 +109,9 @@ function popupModal() {
 
     copyImage.src = document.getElementsByClassName('item_img')[itemIndex].src
     copyName.innerHTML = document.getElementsByClassName('recipe_name')[itemIndex].innerHTML
-    recipeCategory.innerHTML = document.getElementsByClassName('recipe_category')[itemIndex].innerHTML
-    recipeInfo.innerHTML = document.getElementsByClassName('recipe_info')[itemIndex].innerHTML
-    openVideo.innerHTML = document.getElementsByClassName('open_video')[itemIndex].href
+    modalCategory.innerHTML = document.getElementsByClassName('recipe_category')[itemIndex].innerHTML
+    modalText.innerHTML = document.getElementsByClassName('recipe_info')[itemIndex].innerHTML
+    modalVideo.href = document.getElementsByClassName('recipe_video')[itemIndex].href
 }
 function closeModal(){
     modal.classList.remove('show')
@@ -143,7 +170,7 @@ function changeLightMode(){
 darkOn.addEventListener('click', changeDarkMode)
 darkOff.addEventListener('click', changeLightMode)
 
-// // 무한 스크롤
+// 무한 스크롤
 const showResult = document.querySelector('.show_result')
 
 function pageHeight(){

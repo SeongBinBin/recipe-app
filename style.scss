@@ -159,14 +159,15 @@ h1{
             font-size: 1.1rem;
         }
         .get_recipe{
-            max-width: 50%; height: 45px;
+            width: 50%; height: 45px;
             margin-bottom: 30px;
             background-color: var(--main-first-color);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             color: #fff;
-            font-size: 1rem; font-weight: bold;
+            font-size: 1rem;
+            font-weight: bold;
 
             &:hover{
                 background-color: var(--main-first-color-hover);
@@ -175,6 +176,10 @@ h1{
                 outline: none;
             }
         }
+    }
+
+    .recipe_category, .recipe_info{
+        display: none;
     }
 
     -ms-overflow-style: none;
@@ -213,7 +218,7 @@ h1{
         color: #fff;
         font-size: 2rem;
     }
-    .recipe_category{
+    .modal_category{
         background-color: #fff;
         color: var(--main-first-color);
         font-size: 1.5rem;
@@ -222,11 +227,27 @@ h1{
         border-radius: 10px;
         margin-bottom: 10px;
     }
-    .recipe_info{
+    .modal_text{
         color: #fff;
+        height: 250px;
         font-size: 1.1rem;
         padding: 0 15px;
         margin-bottom: 10px;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px;  /* 스크롤바의 너비 */
+        }
+        &::-webkit-scrollbar-thumb {
+            height: 30%; /* 스크롤바의 길이 */
+            background: gray; /* 스크롤바의 색상 */
+            
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+        }
+        
     }
     .modal_link{
         .open_video{
@@ -251,7 +272,10 @@ h1{
 }
 
 // 아이폰 12프로
-@media (max-width: 500px){
+@media (max-width: 450px){
+    .top_container{
+        margin-top: 70px;
+    }
     h1{
         font-size: 1.5rem;
     }
@@ -265,14 +289,17 @@ h1{
         max-width: 250px;
     }
     .show_result{
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .item{
-        width: 170px;
-        .get_recipe{
-            width: 150px;
+        grid-template-columns: repeat(1, 1fr);
+        .item{
+            height: 430px;
+    
+            .get_recipe{
+                position: relative;
+                bottom: 30px;
+            }
         }
     }
+    
     .modal_container{
         width: 300px; height: 500px;
         span{
@@ -281,12 +308,13 @@ h1{
         .modal_name{
             font-size: 1.5rem;
         }
-        .recipe_category{
+        .modal_category{
             max-width: 150px;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
-        .recipe_info{
+        .modal_text{
             font-size: .7rem;
+            height: 200px;
         }
         .modal_link{
             .open_video{
